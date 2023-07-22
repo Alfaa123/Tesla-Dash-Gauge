@@ -1,0 +1,148 @@
+#platform "uLCD-28PTU"
+
+
+// Program Skeleton 1.4 generated 7/21/2023 10:23:34 PM
+
+
+#inherit "4DGL_16bitColours.fnc"
+
+#inherit "VisualConst.inc"
+
+#inherit "Tesla-Dash-GaugeConst.inc"
+
+var transmitBegin := 0;
+var transmitInProgress := 0;
+var recieveCount := 0;
+
+var frontMotorCurrent := 0;
+var frontMotorTemp := 0;
+var rearMotorCurrent := 0;
+var rearMotorTemp := 0;
+
+var newfrontMotorCurrent := 0;
+var newfrontMotorTemp := 0;
+var newrearMotorCurrent := 0;
+var newrearMotorTemp := 0;
+
+func main()
+var x := 0;
+var serialBuffer[128];
+var inputChar := 0;
+
+  //var hstrings ; // Handle to access uSD strings, uncomment if required
+  //var hFontx ;   // Handle to access uSD fonts, uncomment if required and change n to font number
+    putstr("Mounting...\n");
+    if (!(file_Mount()))
+        while(!(file_Mount()))
+            putstr("Drive not mounted...");
+            pause(200);
+            gfx_Cls();
+            pause(200);
+        wend
+    endif
+    //    gfx_TransparentColour(0x0020);    // uncomment if transparency required
+    //    gfx_Transparency(ON);             // uncomment if transparency required
+
+    // hFontn := file_LoadImageControl("Tesla-Da.dan", "Tesla-Da.gcn", 1); // Open handle to access uSD fonts, uncomment if required and change n to font number dropping a and c if > 9
+    //hstrings := file_Open("Tesla-Da.txf", 'r') ; // Open handle to access uSD strings, uncomment if required
+    hndl := file_LoadImageControl("Tesla-Da.dat", "Tesla-Da.gci", 1);
+
+
+    // Angularmeter1 1.0 generated 7/21/2023 10:24:15 PM
+
+    // Form1 1.1 generated 7/21/2023 10:33:25 PM
+
+    // Form1 1.1 generated 7/21/2023 10:35:15 PM
+
+    gfx_Set(SCREEN_MODE,LANDSCAPE) ;
+    gfx_BGcolour(AZURE) ;
+    gfx_Cls();
+
+    com_Init(serialBuffer, 256, 0);
+    setbaud(BAUD_115200);
+
+    repeat
+    inputChar := serin();
+    if (inputChar >= 0)
+        processSerial(inputChar);
+    endif
+    x++;
+    if (x > 99)
+    x := 0;
+    endif
+    img_SetWord(hndl, iAngularmeter1, IMAGE_INDEX, frontMotorCurrent) ; // where frame is 0 to 100 (for a displayed 0 to 100)
+    img_Show(hndl,iAngularmeter1) ;
+
+    // Angularmeter2 1.0 generated 7/21/2023 10:48:49 PM
+    img_SetWord(hndl, iAngularmeter2, IMAGE_INDEX, rearMotorCurrent) ; // where frame is 0 to 100 (for a displayed 0 to 100)
+    img_Show(hndl,iAngularmeter2) ;
+
+    // Angularmeter3 1.0 generated 7/21/2023 10:48:53 PM
+    img_SetWord(hndl, iAngularmeter3, IMAGE_INDEX, frontMotorTemp) ; // where frame is 0 to 100 (for a displayed 0 to 100)
+    img_Show(hndl,iAngularmeter3) ;
+
+    // Angularmeter4 1.0 generated 7/21/2023 10:48:54 PM
+    img_SetWord(hndl, iAngularmeter4, IMAGE_INDEX, rearMotorTemp) ; // where frame is 0 to 100 (for a displayed 0 to 100)
+    img_Show(hndl,iAngularmeter4) ;
+
+    forever
+endfunc
+
+func processSerial(var currentChar)
+    if (transmitInProgress == 0)
+        if (currentChar == 69)
+
+            transmitBegin++;
+            if (transmitBegin > 2)
+                transmitInProgress := 1;
+                transmitBegin := 0;
+                recieveCount := 0;
+                serout('B');
+            endif
+        else
+            transmitBegin := 0;
+        endif
+    else
+       if (currentChar == 69)
+          transmitBegin++;
+            if (transmitBegin > 2)
+                transmitInProgress := 0;
+                transmitBegin := 0;
+                serout('E');
+            endif
+        else
+        transmitBegin := 0;
+       endif
+         switch (recieveCount)
+            case 0:
+                frontMotorCurrent := currentChar;
+                frontMotorCurrent << 8;
+                break;
+            case 1:
+                frontMotorCurrent := frontMotorCurrent + currentChar;
+                break;
+            case 2:
+                rearMotorCurrent := currentChar;
+                rearMotorCurrent << 8;
+                break;
+            case 3:
+                rearMotorCurrent := rearMotorCurrent + currentChar;
+                break;
+            case 4:
+                frontMotorTemp := currentChar;
+                frontMotorTemp << 8;
+                break;
+            case 5:
+                frontMotorTemp := frontMotorTemp + currentChar;
+                break;
+            case 6:
+                rearMotorTemp := currentChar;
+                rearMotorTemp << 8;
+                break;
+            case 7:
+                rearMotorTemp := rearMotorTemp + currentChar;
+                break;
+        endswitch
+        recieveCount++;
+    endif
+endfunc

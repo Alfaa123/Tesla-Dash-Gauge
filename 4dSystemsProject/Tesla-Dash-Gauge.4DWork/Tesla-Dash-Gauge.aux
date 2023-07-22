@@ -1,0 +1,162 @@
+==============================================================
+==============================================================
+4DGL Compiler 2.8.1.0 -- Copyright 2004-2016 4D Labs
+** R:\Tesla-Dash-Gauge\Tesla-Dash-Gauge\4dSystemsProject\Tesla-Dash-Gauge.4dg
+compiled Sat Jul 22 00:55:40 2023
+
+==============================================================
+==============================================================
+
+
+No Ref for file
+[LINKING]
+function 2, processSerial, address 0x55, stack usage 0 + 4 
+currentChar                            1  word     [arg]  (usage 30)
+
+[LINKING]
+function 1, main(main entry point), address 0x17e, stack usage 260 + 4 
+inputChar                            130  word     [local]  (usage 10)
+serialBuffer                           2  word[128]  [local]  (usage 3)
+x                                      1  word     [local]  (usage 10)
+
+[RESERVED WORDS]
+#inherit
+#LISTCODE
+#MODE
+#STACK
+#OPTIMIZE_ON
+#OPTIMIZE_OFF
+byte
+word
+dword
+float
+private
+#IF
+#IFNOT
+#ELSE
+#ENDIF
+#CONST
+#constant
+#USE
+USING
+func
+endfunc
+var
+#STOP
+#DATA
+#ASM
+#END
+#platform
+EXISTS
+#ERROR
+#MESSAGE
+#NOTICE
+sizeof
+argcount
+if
+else
+endif
+while
+wend
+repeat
+until
+forever
+return
+break
+continue
+for
+next
+switch
+case
+default
+endswitch
+print
+goto
+gosub
+endsub
+mcall
+lookup8
+lookup16
+
+[MACRO]
+
+[CONSTANTS]
+__MAXMEM                          00003840      14400  (usage 1)
+__MAXPROG                         00003840      14400  (usage 1)
+AZURE                             0000F7FF      63487  (usage 3)
+BAUD_115200                       0000000D         13  (usage 3)
+iAngularmeter1                    00000000          0  (usage 6)
+iAngularmeter2                    00000001          1  (usage 6)
+iAngularmeter3                    00000002          2  (usage 6)
+iAngularmeter4                    00000003          3  (usage 6)
+IMAGE_INDEX                       00000009          9  (usage 12)
+LANDSCAPE                         00000000          0  (usage 3)
+PICASO                            00000001          1  (usage 3)
+SCREEN_MODE                       00000017         23  (usage 3)
+
+[PmmC FUNCTIONS]
+com_Init                          FFFFFF88        -120  args=3 r=0  (usage 3)
+file_LoadImageControl             FFFFFF04        -252  args=3 r=1  (usage 3)
+file_Mount                        FFFFFF03        -253  args=0 r=1  (usage 6)
+gfx_BGcolour                      FFFFFFA4         -92  args=1 r=1  (usage 3)
+gfx_Cls                           FFFFFFCD         -51  args=0 r=0  (usage 6)
+gfx_Set                           FFFFFFCE         -50  args=2 r=0  (usage 3)
+img_SetWord                       FFFFFF49        -183  args=4 r=1  (usage 12)
+img_Show                          FFFFFF47        -185  args=2 r=1  (usage 12)
+pause                             FFFFFFFA          -6  args=1 r=0  (usage 6)
+putstr                            FFFFFFF7          -9  args=1 r=1  (usage 6)
+serin                             FFFFFFFF          -1  args=0 r=1  (usage 3)
+serout                            FFFFFFFD          -3  args=1 r=0  (usage 6)
+setbaud                           FFFFFFFC          -4  args=1 r=0  (usage 3)
+
+[USER FUNCTIONS]
+processSerial                     00000055  args=1 r=0  (usage 3)
+
+[GLOBAL VARIABLES]
+frontMotorCurrent                      5  word       (usage 16)
+frontMotorTemp                         6  word       (usage 16)
+hndl                                   1  word       (usage 27)
+rearMotorCurrent                       7  word       (usage 16)
+rearMotorTemp                          8  word       (usage 16)
+recieveCount                           4  word       (usage 10)
+transmitBegin                          2  word       (usage 25)
+transmitInProgress                     3  word       (usage 10)
+
+[PRIVATE VARIABLES]
+
+[DATA]
+0007: E3 00 F2 00 FE 00 0D 01 19 01 28 01 34 01 43 01     ã.ò.þ.....(.4.C.
+0017: 4F 01 4D 6F 75 6E 74 69 6E 67 2E 2E 2E 0A 00 44     O.Mounting.....D
+0027: 72 69 76 65 20 6E 6F 74 20 6D 6F 75 6E 74 65 64     rive not mounted
+0037: 2E 2E 2E 00 54 65 73 6C 61 2D 44 61 2E 64 61 74     ....Tesla-Da.dat
+0047: 00 54 65 73 6C 61 2D 44 61 2E 67 63 69 00           .Tesla-Da.gci.
+
+[__MAXPROG]
+14400
+[__MAXMEM]
+14400
+
+[PROGRAM]
+main
+[CODESIZE]
+662
+[MEMSIZE]
+8
+[ARGCOUNT]
+0
+[RETURNS]
+NO
+[STACKSIZE]
+0 (AUTO)
+[STACK_ESTIMATE]
+268   (nb:- worst case estimate)
+[MODE]
+0
+
+[PROJECT]
+R:\Tesla-Dash-Gauge\Tesla-Dash-Gauge\4dSystemsProject\Tesla-Dash-Gauge.4dg
+C:\Program Files (x86)\4D Labs\4D Workshop 4 IDE\include\uLCD-28PTU.fnc
+C:\Program Files (x86)\4D Labs\4D Workshop 4 IDE\include\PicasoFunctions.fnc
+C:\Program Files (x86)\4D Labs\4D Workshop 4 IDE\include\4DGL_16bitColours.fnc
+C:\Program Files (x86)\4D Labs\4D Workshop 4 IDE\include\VisualConst.inc
+R:\Tesla-Dash-Gauge\Tesla-Dash-Gauge\4dSystemsProject\Tesla-Dash-Gauge.4DWork\Tesla-Dash-GaugeConst.inc
