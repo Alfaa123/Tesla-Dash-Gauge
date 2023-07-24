@@ -2851,7 +2851,7 @@ file R:\Tesla-Dash-Gauge\Tesla-Dash-Gauge\4dSystemsProject\Tesla-Dash-Gauge.4DWo
 
 002840  000011  #inherit "Tesla-Dash-GaugeConst.inc"
 002841  000011  #inherit "Tesla-Dash-GaugeConst.inc"
-002842  000001  // File generated 7/22/2023 12:39:17 AM
+002842  000001  // File generated 7/22/2023 11:01:19 PM
 002843  000002  // Warning! This is a generated file, any manual changes will be
 002844  000003  // lost during the next generation.
 002845  000004        
@@ -2859,12 +2859,12 @@ file R:\Tesla-Dash-Gauge\Tesla-Dash-Gauge\4dSystemsProject\Tesla-Dash-Gauge.4DWo
 002847  000005  #constant  IFONT_OFFSET     0
 002848  000006  // object indexes into ImageControl
 002849  000007  #CONST
-002850  000012  #END
-002851  000013        
-002852  000014        
-002853  000015  #IFNOT EXISTS NOGLOBALS
-002854  000016  var hndl ;
-002855  000017  #ENDIF
+002850  000013  #END
+002851  000014        
+002852  000015        
+002853  000016  #IFNOT EXISTS NOGLOBALS
+002854  000017  var hndl ;
+002855  000018  #ENDIF
 002856  000012        
 002857  000013  var transmitBegin := 0;
 002858  000014  var transmitInProgress := 0;
@@ -2875,128 +2875,146 @@ file R:\Tesla-Dash-Gauge\Tesla-Dash-Gauge\4dSystemsProject\Tesla-Dash-Gauge.4DWo
 002863  000019  var rearMotorCurrent := 0;
 002864  000020  var rearMotorTemp := 0;
 002865  000021        
-002866  000022  func main()
-002867  000023  var x := 0;
-002868  000024  var serialBuffer[128];
-002869  000025  var inputChar := 0;
+002866  000022  var newfrontMotorCurrent := 0;
+002867  000023  var newfrontMotorTemp := 0;
+002868  000024  var newrearMotorCurrent := 0;
+002869  000025  var newrearMotorTemp := 0;
 002870  000026        
-002871  000027    //var hstrings ; // Handle to access uSD strings, uncomment if required
-002872  000028    //var hFontx ;   // Handle to access uSD fonts, uncomment if required and change n to font number
-002873  000029      putstr("Mounting...\n");
-002874  000030      if (!(file_Mount()))
-002875  000031          while(!(file_Mount()))
-002876  000032              putstr("Drive not mounted...");
-002877  000033              pause(200);
-002878  000034              gfx_Cls();
-002879  000035              pause(200);
-002880  000036          wend
-002881  000037      endif
-002882  000038      //    gfx_TransparentColour(0x0020);    // uncomment if transparency required
-002883  000039      //    gfx_Transparency(ON);             // uncomment if transparency required
-002884  000040        
-002885  000041      // hFontn := file_LoadImageControl("Tesla-Da.dan", "Tesla-Da.gcn", 1); // Open handle to access uSD fonts, uncomment if required and change n to font number dropping a and c if > 9
-002886  000042      //hstrings := file_Open("Tesla-Da.txf", 'r') ; // Open handle to access uSD strings, uncomment if required
-002887  000043      hndl := file_LoadImageControl("Tesla-Da.dat", "Tesla-Da.gci", 1);
-002888  000044        
-002889  000045        
-002890  000046      // Angularmeter1 1.0 generated 7/21/2023 10:24:15 PM
+002871  000027  var updateValue := 0b1111111111111111;
+002872  000028        
+002873  000029  func main()
+002874  000030  var x := 0;
+002875  000031  var serialBuffer[128];
+002876  000032  var inputChar := 0;
+002877  000033        
+002878  000034    //var hstrings ; // Handle to access uSD strings, uncomment if required
+002879  000035    //var hFontx ;   // Handle to access uSD fonts, uncomment if required and change n to font number
+002880  000036      putstr("Mounting...\n");
+002881  000037      if (!(file_Mount()))
+002882  000038          while(!(file_Mount()))
+002883  000039              putstr("Drive not mounted...");
+002884  000040              pause(200);
+002885  000041              gfx_Cls();
+002886  000042              pause(200);
+002887  000043          wend
+002888  000044      endif
+002889  000045      //    gfx_TransparentColour(0x0020);    // uncomment if transparency required
+002890  000046      //    gfx_Transparency(ON);             // uncomment if transparency required
 002891  000047        
-002892  000048      // Form1 1.1 generated 7/21/2023 10:33:25 PM
-002893  000049        
-002894  000050      // Form1 1.1 generated 7/21/2023 10:35:15 PM
+002892  000048      // hFontn := file_LoadImageControl("Tesla-Da.dan", "Tesla-Da.gcn", 1); // Open handle to access uSD fonts, uncomment if required and change n to font number dropping a and c if > 9
+002893  000049      //hstrings := file_Open("Tesla-Da.txf", 'r') ; // Open handle to access uSD strings, uncomment if required
+002894  000050      hndl := file_LoadImageControl("Tesla-Da.dat", "Tesla-Da.gci", 1);
 002895  000051        
-002896  000052      gfx_Set(SCREEN_MODE,LANDSCAPE) ;
-002897  000053      gfx_BGcolour(AZURE) ;
-002898  000054      gfx_Cls();
-002899  000055        
-002900  000056      com_Init(serialBuffer, 256, 0);
-002901  000057      setbaud(BAUD_115200);
+002896  000052        
+002897  000053      // Angularmeter1 1.0 generated 7/21/2023 10:24:15 PM
+002898  000054        
+002899  000055      // Form1 1.1 generated 7/21/2023 10:33:25 PM
+002900  000056        
+002901  000057      // Form1 1.1 generated 7/21/2023 10:35:15 PM
 002902  000058        
-002903  000059      repeat
-002904  000060      inputChar := serin();
-002905  000061      if (inputChar >= 0)
-002906  000062          processSerial(inputChar);
-002907  000063      endif
-002908  000064      x++;
-002909  000065      if (x > 99)
-002910  000066      x := 0;
-002911  000067      endif
-002912  000068      img_SetWord(hndl, iAngularmeter1, IMAGE_INDEX, frontMotorCurrent) ; // where frame is 0 to 100 (for a displayed 0 to 100)
-002913  000069      img_Show(hndl,iAngularmeter1) ;
-002914  000070        
-002915  000071      // Angularmeter2 1.0 generated 7/21/2023 10:48:49 PM
-002916  000072      img_SetWord(hndl, iAngularmeter2, IMAGE_INDEX, rearMotorCurrent) ; // where frame is 0 to 100 (for a displayed 0 to 100)
-002917  000073      img_Show(hndl,iAngularmeter2) ;
-002918  000074        
-002919  000075      // Angularmeter3 1.0 generated 7/21/2023 10:48:53 PM
-002920  000076      img_SetWord(hndl, iAngularmeter3, IMAGE_INDEX, frontMotorTemp) ; // where frame is 0 to 100 (for a displayed 0 to 100)
-002921  000077      img_Show(hndl,iAngularmeter3) ;
-002922  000078        
-002923  000079      // Angularmeter4 1.0 generated 7/21/2023 10:48:54 PM
-002924  000080      img_SetWord(hndl, iAngularmeter4, IMAGE_INDEX, rearMotorTemp) ; // where frame is 0 to 100 (for a displayed 0 to 100)
-002925  000081      img_Show(hndl,iAngularmeter4) ;
-002926  000082        
-002927  000083      forever
-002928  000084  endfunc
-002929  000085        
-002930  000086  func processSerial(var currentChar)
-002931  000087      if (transmitInProgress == 0)
-002932  000088          if (currentChar == 69)
+002903  000059      gfx_Set(SCREEN_MODE,LANDSCAPE) ;
+002904  000060      gfx_BGcolour(AZURE) ;
+002905  000061      gfx_Cls();
+002906  000062        
+002907  000063      com_Init(serialBuffer, 256, 0);
+002908  000064      setbaud(BAUD_115200);
+002909  000065        
+002910  000066      repeat
+002911  000067      inputChar := serin();
+002912  000068      if (inputChar >= 0)
+002913  000069          processSerial(inputChar);
+002914  000070      endif
+002915  000071        
+002916  000072      if (0b0000000000000001 & updateValue)
+002917  000073          img_SetWord(hndl, iAngularmeter1, IMAGE_INDEX, frontMotorCurrent) ; // where frame is 0 to 100 (for a displayed 0 to 100)
+002918  000074          img_Show(hndl,iAngularmeter1) ;
+002919  000075          updateValue := updateValue & 0b1111111111111110;
+002920  000076      endif
+002921  000077        
+002922  000078      if (0b0000000000000010 & updateValue)
+002923  000079          img_SetWord(hndl, iAngularmeter2, IMAGE_INDEX, rearMotorCurrent) ; // where frame is 0 to 100 (for a displayed 0 to 100)
+002924  000080          img_Show(hndl,iAngularmeter2) ;
+002925  000081          updateValue := updateValue & 0b1111111111111101;
+002926  000082      endif
+002927  000083        
+002928  000084      if (0b0000000000000100 & updateValue)
+002929  000085          img_SetWord(hndl, iAngularmeter3, IMAGE_INDEX, frontMotorTemp) ; // where frame is 0 to 100 (for a displayed 0 to 100)
+002930  000086          img_Show(hndl,iAngularmeter3) ;
+002931  000087          updateValue := updateValue & 0b1111111111111011;
+002932  000088      endif
 002933  000089        
-002934  000090              transmitBegin++;
-002935  000091              if (transmitBegin > 2)
-002936  000092                  transmitInProgress := 1;
-002937  000093                  transmitBegin := 0;
-002938  000094                  recieveCount := 0;
-002939  000095                  serout('B');
-002940  000096              endif
-002941  000097          else
-002942  000098              transmitBegin := 0;
-002943  000099          endif
-002944  000100      else
-002945  000101         if (currentChar == 69)
-002946  000102            transmitBegin++;
-002947  000103              if (transmitBegin > 2)
-002948  000104                  transmitInProgress := 0;
-002949  000105                  transmitBegin := 0;
-002950  000106                  serout('E');
-002951  000107              endif
-002952  000108          else
-002953  000109          transmitBegin := 0;
-002954  000110         endif
-002955  000111           switch (recieveCount)
-002956  000112              case 0:
-002957  000113                  frontMotorCurrent := currentChar;
-002958  000114                  frontMotorCurrent << 8;
-002959  000115                  break;
-002960  000116              case 1:
-002961  000117                  frontMotorCurrent := frontMotorCurrent + currentChar;
-002962  000118                  break;
-002963  000119              case 2:
-002964  000120                  rearMotorCurrent := currentChar;
-002965  000121                  rearMotorCurrent << 8;
-002966  000122                  break;
-002967  000123              case 3:
-002968  000124                  rearMotorCurrent := rearMotorCurrent + currentChar;
-002969  000125                  break;
-002970  000126              case 4:
-002971  000127                  frontMotorTemp := currentChar;
-002972  000128                  frontMotorTemp << 8;
+002934  000090      if (0b0000000000001000 & updateValue)
+002935  000091          img_SetWord(hndl, iAngularmeter4, IMAGE_INDEX, rearMotorTemp) ; // where frame is 0 to 100 (for a displayed 0 to 100)
+002936  000092          img_Show(hndl,iAngularmeter4) ;
+002937  000093          updateValue := updateValue & 0b1111111111110111;
+002938  000094      endif
+002939  000095        
+002940  000096      forever
+002941  000097  endfunc
+002942  000098        
+002943  000099  func processSerial(var currentChar)
+002944  000100      if (transmitInProgress == 0)
+002945  000101          if (currentChar == 69)
+002946  000102        
+002947  000103              transmitBegin++;
+002948  000104              if (transmitBegin > 2)
+002949  000105                  transmitInProgress := 1;
+002950  000106                  transmitBegin := 0;
+002951  000107                  recieveCount := 0;
+002952  000108                  serout('B');
+002953  000109              endif
+002954  000110        
+002955  000111          else
+002956  000112              transmitBegin := 0;
+002957  000113          endif
+002958  000114      else
+002959  000115         if (currentChar == 68)
+002960  000116            transmitBegin++;
+002961  000117              if (transmitBegin > 2)
+002962  000118                  transmitInProgress := 0;
+002963  000119                  transmitBegin := 0;
+002964  000120                  serout('E');
+002965  000121              endif
+002966  000122          else
+002967  000123          transmitBegin := 0;
+002968  000124         endif
+002969  000125           switch (recieveCount)
+002970  000126              case 0:
+002971  000127                  newfrontMotorCurrent := currentChar;
+002972  000128                  newfrontMotorCurrent << 8;
 002973  000129                  break;
-002974  000130              case 5:
-002975  000131                  frontMotorTemp := frontMotorTemp + currentChar;
-002976  000132                  break;
-002977  000133              case 6:
-002978  000134                  rearMotorTemp := currentChar;
-002979  000135                  rearMotorTemp << 8;
-002980  000136                  break;
-002981  000137              case 7:
-002982  000138                  rearMotorTemp := rearMotorTemp + currentChar;
-002983  000139                  break;
-002984  000140          endswitch
-002985  000141          recieveCount++;
-002986  000142      endif
-002987  000143  endfunc
+002974  000130              case 1:
+002975  000131                  frontMotorCurrent := newfrontMotorCurrent + currentChar;
+002976  000132                  updateValue := updateValue | 0b0000000000000001;
+002977  000133                  break;
+002978  000134              case 2:
+002979  000135                  newrearMotorCurrent := currentChar;
+002980  000136                  newrearMotorCurrent << 8;
+002981  000137                  break;
+002982  000138              case 3:
+002983  000139                  rearMotorCurrent := newrearMotorCurrent + currentChar;
+002984  000140                  updateValue := updateValue | 0b0000000000000010;
+002985  000141                  break;
+002986  000142              case 4:
+002987  000143                  newfrontMotorTemp := currentChar;
+002988  000144                  newfrontMotorTemp << 8;
+002989  000145                  break;
+002990  000146              case 5:
+002991  000147                  frontMotorTemp := newfrontMotorTemp + currentChar;
+002992  000148                  updateValue := updateValue | 0b0000000000000100;
+002993  000149                  break;
+002994  000150              case 6:
+002995  000151                  newrearMotorTemp := currentChar;
+002996  000152                  newrearMotorTemp << 8;
+002997  000153                  break;
+002998  000154              case 7:
+002999  000155                  rearMotorTemp := newrearMotorTemp + currentChar;
+003000  000156                  updateValue := updateValue | 0b0000000000001000;
+003001  000157                  break;
+003002  000158          endswitch
+003003  000159          recieveCount++;
+003004  000160      endif
+003005  000161  endfunc
 
 
 Symbol Table:
@@ -3333,8 +3351,8 @@ FRAME_CYCLE_CONTROL                   10  0x0000000a (const dword)  (not used)
 FRAME_DELAY                           22  0x00000016 (const dword)  (not used)
 FRAME_MAKER_POSITION                  13  0x0000000d (const dword)  (not used)
 FRAME_RATE_CONTROL                    43  0x0000002b (const dword)  (not used)
-frontMotorCurrent                      8  0x00000008 (mem) word (global)  (usage 16)
-frontMotorTemp                        10  0x0000000a (mem) word (global)  (usage 16)
+frontMotorCurrent                      8  0x00000008 (mem) word (global)  (usage 7)
+frontMotorTemp                        10  0x0000000a (mem) word (global)  (usage 7)
 FUCHSIA                            63519  0x0000f81f (const dword)  (not used)
 GAINSBORO                          57083  0x0000defb (const dword)  (not used)
 GAMMA_CONTROL_1                       48  0x00000030 (const dword)  (not used)
@@ -3539,6 +3557,7 @@ IMAGE_TAG2                            13  0x0000000d (const dword)  (not used)
 IMAGE_WIDTH                            4  0x00000004 (const dword)  (not used)
 IMAGE_XPOS                             2  0x00000002 (const dword)  (not used)
 IMAGE_YPOS                             3  0x00000003 (const dword)  (not used)
+iMeter1                                4  0x00000004 (const ??? 0)  (not used)
 img_ClearAttributes                 -187  0xffffff45 (PmmC func) args[3] r=1  (not used)
 IMG_COUNT                              0  0x00000000 (const dword)  (not used)
 IMG_CURRENT_FRAME                     89  0x00000059 (const dword)  (not used)
@@ -3623,7 +3642,7 @@ LPFINE                             43690  0x0000aaaa (const dword)  (not used)
 LPMEDIUM                           13107  0x00003333 (const dword)  (not used)
 LPSOLID                                0  0x00000000 (const dword)  (not used)
 MAGENTA                            63519  0x0000f81f (const dword)  (not used)
-main                                 382  0x0000017e (User func) args[0] r=0  (not used)
+main                                 449  0x000001c1 (User func) args[0] r=0  (not used)
 MAROON                             32768  0x00008000 (const dword)  (not used)
 MAX                                  -15  0xfffffff1 (PmmC func) args[2] r=1  (not used)
 MDA                                63552  0x0000f840 (const dword)  (not used)
@@ -3673,6 +3692,10 @@ MISTYROSE                          65340  0x0000ff3c (const dword)  (not used)
 MOCCASIN                           65334  0x0000ff36 (const dword)  (not used)
 NAVAJOWHITE                        65269  0x0000fef5 (const dword)  (not used)
 NAVY                                  16  0x00000010 (const dword)  (not used)
+newfrontMotorCurrent                  16  0x00000010 (mem) word (global)  (usage 10)
+newfrontMotorTemp                     18  0x00000012 (mem) word (global)  (usage 10)
+newrearMotorCurrent                   20  0x00000014 (mem) word (global)  (usage 10)
+newrearMotorTemp                      22  0x00000016 (mem) word (global)  (usage 10)
 NOTOUCH                                0  0x00000000 (const dword)  (not used)
 OBJECT_COLOUR                         18  0x00000012 (const dword)  (not used)
 OFF                                    0  0x00000000 (const dword)  (not used)
@@ -3736,8 +3759,8 @@ RAM_START_PD_2                       132  0x00000084 (const dword)  (not used)
 RAND                                 -19  0xffffffed (PmmC func) args[0] r=1  (not used)
 RANDOM_HI                             33  0x00000021 (const dword)  (not used)
 RANDOM_LO                             32  0x00000020 (const dword)  (not used)
-rearMotorCurrent                      12  0x0000000c (mem) word (global)  (usage 16)
-rearMotorTemp                         14  0x0000000e (mem) word (global)  (usage 16)
+rearMotorCurrent                      12  0x0000000c (mem) word (global)  (usage 7)
+rearMotorTemp                         14  0x0000000e (mem) word (global)  (usage 7)
 recieveCount                           6  0x00000006 (mem) word (global)  (usage 10)
 RED                                63488  0x0000f800 (const dword)  (not used)
 reserved                            -294  0xfffffeda (PmmC func) args[0] r=0  (not used)
@@ -3947,6 +3970,7 @@ umul_1616                           -289  0xfffffedf (PmmC func) args[3] r=1  (n
 UNDERLINED                           128  0x00000080 (const dword)  (not used)
 unicode_page                        -281  0xfffffee7 (PmmC func) args[3] r=1  (not used)
 UP                                     1  0x00000001 (const dword)  (not used)
+updateValue                           24  0x00000018 (mem) word (global)  (usage 61)
 USER_INITIALIZED_DISPLAY              32  0x00000020 (const dword)  (not used)
 usub_3232                           -291  0xfffffedd (PmmC func) args[3] r=1  (not used)
 VER_WINDOW_BEG                        82  0x00000052 (const dword)  (not used)

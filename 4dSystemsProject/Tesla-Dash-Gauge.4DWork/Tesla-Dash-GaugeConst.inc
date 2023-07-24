@@ -1,4 +1,4 @@
-// File generated 7/22/2023 12:39:17 AM
+// File generated 7/22/2023 11:01:19 PM
 // Warning! This is a generated file, any manual changes will be
 // lost during the next generation.
 
@@ -9,6 +9,7 @@
     iAngularmeter2  // offset 0x3B3000
     iAngularmeter3  // offset 0x766000
     iAngularmeter4  // offset 0xB19000
+    iMeter1         // offset 0xECC000
 #END
 
 

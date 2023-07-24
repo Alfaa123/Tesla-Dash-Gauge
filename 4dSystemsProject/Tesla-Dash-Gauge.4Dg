@@ -24,6 +24,8 @@ var newfrontMotorTemp := 0;
 var newrearMotorCurrent := 0;
 var newrearMotorTemp := 0;
 
+var updateValue := 0b1111111111111111;
+
 func main()
 var x := 0;
 var serialBuffer[128];
@@ -66,24 +68,30 @@ var inputChar := 0;
     if (inputChar >= 0)
         processSerial(inputChar);
     endif
-    x++;
-    if (x > 99)
-    x := 0;
+
+    if (0b0000000000000001 & updateValue)
+        img_SetWord(hndl, iAngularmeter1, IMAGE_INDEX, frontMotorCurrent) ; // where frame is 0 to 100 (for a displayed 0 to 100)
+        img_Show(hndl,iAngularmeter1) ;
+        updateValue := updateValue & 0b1111111111111110;
     endif
-    img_SetWord(hndl, iAngularmeter1, IMAGE_INDEX, frontMotorCurrent) ; // where frame is 0 to 100 (for a displayed 0 to 100)
-    img_Show(hndl,iAngularmeter1) ;
 
-    // Angularmeter2 1.0 generated 7/21/2023 10:48:49 PM
-    img_SetWord(hndl, iAngularmeter2, IMAGE_INDEX, rearMotorCurrent) ; // where frame is 0 to 100 (for a displayed 0 to 100)
-    img_Show(hndl,iAngularmeter2) ;
+    if (0b0000000000000010 & updateValue)
+        img_SetWord(hndl, iAngularmeter2, IMAGE_INDEX, rearMotorCurrent) ; // where frame is 0 to 100 (for a displayed 0 to 100)
+        img_Show(hndl,iAngularmeter2) ;
+        updateValue := updateValue & 0b1111111111111101;
+    endif
 
-    // Angularmeter3 1.0 generated 7/21/2023 10:48:53 PM
-    img_SetWord(hndl, iAngularmeter3, IMAGE_INDEX, frontMotorTemp) ; // where frame is 0 to 100 (for a displayed 0 to 100)
-    img_Show(hndl,iAngularmeter3) ;
+    if (0b0000000000000100 & updateValue)
+        img_SetWord(hndl, iAngularmeter3, IMAGE_INDEX, frontMotorTemp) ; // where frame is 0 to 100 (for a displayed 0 to 100)
+        img_Show(hndl,iAngularmeter3) ;
+        updateValue := updateValue & 0b1111111111111011;
+    endif
 
-    // Angularmeter4 1.0 generated 7/21/2023 10:48:54 PM
-    img_SetWord(hndl, iAngularmeter4, IMAGE_INDEX, rearMotorTemp) ; // where frame is 0 to 100 (for a displayed 0 to 100)
-    img_Show(hndl,iAngularmeter4) ;
+    if (0b0000000000001000 & updateValue)
+        img_SetWord(hndl, iAngularmeter4, IMAGE_INDEX, rearMotorTemp) ; // where frame is 0 to 100 (for a displayed 0 to 100)
+        img_Show(hndl,iAngularmeter4) ;
+        updateValue := updateValue & 0b1111111111110111;
+    endif
 
     forever
 endfunc
@@ -99,11 +107,12 @@ func processSerial(var currentChar)
                 recieveCount := 0;
                 serout('B');
             endif
+
         else
             transmitBegin := 0;
         endif
     else
-       if (currentChar == 69)
+       if (currentChar == 68)
           transmitBegin++;
             if (transmitBegin > 2)
                 transmitInProgress := 0;
@@ -115,32 +124,36 @@ func processSerial(var currentChar)
        endif
          switch (recieveCount)
             case 0:
-                frontMotorCurrent := currentChar;
-                frontMotorCurrent << 8;
+                newfrontMotorCurrent := currentChar;
+                newfrontMotorCurrent << 8;
                 break;
             case 1:
-                frontMotorCurrent := frontMotorCurrent + currentChar;
+                frontMotorCurrent := newfrontMotorCurrent + currentChar;
+                updateValue := updateValue | 0b0000000000000001;
                 break;
             case 2:
-                rearMotorCurrent := currentChar;
-                rearMotorCurrent << 8;
+                newrearMotorCurrent := currentChar;
+                newrearMotorCurrent << 8;
                 break;
             case 3:
-                rearMotorCurrent := rearMotorCurrent + currentChar;
+                rearMotorCurrent := newrearMotorCurrent + currentChar;
+                updateValue := updateValue | 0b0000000000000010;
                 break;
             case 4:
-                frontMotorTemp := currentChar;
-                frontMotorTemp << 8;
+                newfrontMotorTemp := currentChar;
+                newfrontMotorTemp << 8;
                 break;
             case 5:
-                frontMotorTemp := frontMotorTemp + currentChar;
+                frontMotorTemp := newfrontMotorTemp + currentChar;
+                updateValue := updateValue | 0b0000000000000100;
                 break;
             case 6:
-                rearMotorTemp := currentChar;
-                rearMotorTemp << 8;
+                newrearMotorTemp := currentChar;
+                newrearMotorTemp << 8;
                 break;
             case 7:
-                rearMotorTemp := rearMotorTemp + currentChar;
+                rearMotorTemp := newrearMotorTemp + currentChar;
+                updateValue := updateValue | 0b0000000000001000;
                 break;
         endswitch
         recieveCount++;
