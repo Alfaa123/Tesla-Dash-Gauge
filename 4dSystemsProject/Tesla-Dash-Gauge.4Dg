@@ -19,12 +19,9 @@ var frontMotorTemp := 0;
 var rearMotorCurrent := 0;
 var rearMotorTemp := 0;
 
-var newfrontMotorCurrent := 0;
-var newfrontMotorTemp := 0;
-var newrearMotorCurrent := 0;
-var newrearMotorTemp := 0;
+var respondTimer := 0;
 
-var updateValue := 0b1111111111111111;
+var updateValue := 0b000000000001111;
 
 func main()
 var x := 0;
@@ -67,6 +64,15 @@ var inputChar := 0;
     inputChar := serin();
     if (inputChar >= 0)
         processSerial(inputChar);
+        respondTimer := 0;
+    else if (updateValue == 0)
+        if (respondTimer > 1000)
+            respondTimer := 0;
+        endif
+        if (respondTimer < 1)
+            serout(6);
+        endif
+        respondTimer++;
     endif
 
     if (0b0000000000000001 & updateValue)
@@ -93,66 +99,39 @@ var inputChar := 0;
         updateValue := updateValue & 0b1111111111110111;
     endif
 
+
+
+
     forever
 endfunc
 
 func processSerial(var currentChar)
     if (transmitInProgress == 0)
-        if (currentChar == 69)
-
-            transmitBegin++;
-            if (transmitBegin > 2)
+        if (currentChar == 2)
                 transmitInProgress := 1;
                 transmitBegin := 0;
                 recieveCount := 0;
-                serout('B');
-            endif
-
-        else
-            transmitBegin := 0;
         endif
     else
-       if (currentChar == 68)
-          transmitBegin++;
-            if (transmitBegin > 2)
+       if (currentChar == 4)
                 transmitInProgress := 0;
                 transmitBegin := 0;
-                serout('E');
-            endif
-        else
-        transmitBegin := 0;
        endif
          switch (recieveCount)
             case 0:
-                newfrontMotorCurrent := currentChar;
-                newfrontMotorCurrent << 8;
-                break;
-            case 1:
-                frontMotorCurrent := newfrontMotorCurrent + currentChar;
+                frontMotorCurrent := currentChar - 55;
                 updateValue := updateValue | 0b0000000000000001;
                 break;
-            case 2:
-                newrearMotorCurrent := currentChar;
-                newrearMotorCurrent << 8;
-                break;
-            case 3:
-                rearMotorCurrent := newrearMotorCurrent + currentChar;
+            case 1:
+                rearMotorCurrent := currentChar - 55;
                 updateValue := updateValue | 0b0000000000000010;
                 break;
-            case 4:
-                newfrontMotorTemp := currentChar;
-                newfrontMotorTemp << 8;
-                break;
-            case 5:
-                frontMotorTemp := newfrontMotorTemp + currentChar;
+            case 2:
+                frontMotorTemp := currentChar - 55;
                 updateValue := updateValue | 0b0000000000000100;
                 break;
-            case 6:
-                newrearMotorTemp := currentChar;
-                newrearMotorTemp << 8;
-                break;
-            case 7:
-                rearMotorTemp := newrearMotorTemp + currentChar;
+            case 3:
+                rearMotorTemp := currentChar - 55;
                 updateValue := updateValue | 0b0000000000001000;
                 break;
         endswitch

@@ -13,15 +13,35 @@
 // the setup routine runs once when you press reset:
 void setup() {
   // initialize serial communication at 9600 bits per second:
-  Serial.begin(9600);
+  Serial.begin(115200);
 }
 
+int value[4] = {0,0,0,0};
+int valueTarget[4] = {0,0,0,0};
 // the loop routine runs over and over again forever:
 void loop() {
-  // read the input on analog pin 0:
-  int sensorValue = analogRead(A0);
-  // Convert the analog reading (which goes from 0 - 1023) to a voltage (0 - 5V):
-  float voltage = sensorValue * (5.0 / 1023.0);
-  // print out the value you read:
-  Serial.println(voltage);
+for (int x = 0; x < 4; x++){
+if (value[x] == valueTarget[x]){
+  valueTarget[x] = random(0,100);
+}
+
+if (value[x] < valueTarget[x]) { value[x] = value[x] + 1;}
+else {value[x] = value[x] - 1;}
+}  
+
+Serial.write(2);
+for (int x = 0; x < 4; x++){Serial.write(value[x] + 55);}
+Serial.write(4);
+
+while (true){
+  if (Serial.available() > 0){
+    if (Serial.read() == 6){
+      Serial.flush();
+      break;
+    }
+  }
+
+}
+
+
 }

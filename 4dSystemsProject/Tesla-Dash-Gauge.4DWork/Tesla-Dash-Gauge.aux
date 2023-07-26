@@ -2,7 +2,7 @@
 ==============================================================
 4DGL Compiler 2.8.1.0 -- Copyright 2004-2016 4D Labs
 ** R:\Tesla-Dash-Gauge\Tesla-Dash-Gauge\4dSystemsProject\Tesla-Dash-Gauge.4dg
-compiled Sun Jul 23 21:30:19 2023
+compiled Tue Jul 25 22:47:32 2023
 
 ==============================================================
 ==============================================================
@@ -10,11 +10,11 @@ compiled Sun Jul 23 21:30:19 2023
 
 No Ref for file
 [LINKING]
-function 2, processSerial, address 0x55, stack usage 0 + 4 
-currentChar                            1  word     [arg]  (usage 30)
+function 2, processSerial, address 0x4d, stack usage 0 + 4 
+currentChar                            1  word     [arg]  (usage 18)
 
 [LINKING]
-function 1, main(main entry point), address 0x1c1, stack usage 260 + 4 
+function 1, main(main entry point), address 0x130, stack usage 260 + 4 
 inputChar                            130  word     [local]  (usage 10)
 serialBuffer                           2  word[128]  [local]  (usage 3)
 x                                      1  word     [local]  (usage 1)
@@ -106,35 +106,32 @@ img_Show                          FFFFFF47        -185  args=2 r=1  (usage 12)
 pause                             FFFFFFFA          -6  args=1 r=0  (usage 6)
 putstr                            FFFFFFF7          -9  args=1 r=1  (usage 6)
 serin                             FFFFFFFF          -1  args=0 r=1  (usage 3)
-serout                            FFFFFFFD          -3  args=1 r=0  (usage 6)
+serout                            FFFFFFFD          -3  args=1 r=0  (usage 3)
 setbaud                           FFFFFFFC          -4  args=1 r=0  (usage 3)
 
 [USER FUNCTIONS]
-processSerial                     00000055  args=1 r=0  (usage 3)
+processSerial                     0000004D  args=1 r=0  (usage 3)
 
 [GLOBAL VARIABLES]
 frontMotorCurrent                      5  word       (usage 7)
 frontMotorTemp                         6  word       (usage 7)
 hndl                                   1  word       (usage 27)
-newfrontMotorCurrent                   9  word       (usage 10)
-newfrontMotorTemp                     10  word       (usage 10)
-newrearMotorCurrent                   11  word       (usage 10)
-newrearMotorTemp                      12  word       (usage 10)
 rearMotorCurrent                       7  word       (usage 7)
 rearMotorTemp                          8  word       (usage 7)
 recieveCount                           4  word       (usage 10)
-transmitBegin                          2  word       (usage 25)
+respondTimer                           9  word       (usage 16)
+transmitBegin                          2  word       (usage 7)
 transmitInProgress                     3  word       (usage 10)
-updateValue                           13  word       (usage 61)
+updateValue                           10  word       (usage 64)
 
 [PRIVATE VARIABLES]
 
 [DATA]
-0007: E3 00 F2 00 07 01 16 01 2B 01 3A 01 4F 01 5E 01     ã.ò.....+.:.O.^.
-0017: 73 01 4D 6F 75 6E 74 69 6E 67 2E 2E 2E 0A 00 44     s.Mounting.....D
-0027: 72 69 76 65 20 6E 6F 74 20 6D 6F 75 6E 74 65 64     rive not mounted
-0037: 2E 2E 2E 00 54 65 73 6C 61 2D 44 61 2E 64 61 74     ....Tesla-Da.dat
-0047: 00 54 65 73 6C 61 2D 44 61 2E 67 63 69 00           .Tesla-Da.gci.
+0007: A1 00 B6 00 CB 00 E0 00 F5 00 4D 6F 75 6E 74 69     ¡.¶.Ë.à.õ.Mounti
+0017: 6E 67 2E 2E 2E 0A 00 44 72 69 76 65 20 6E 6F 74     ng.....Drive not
+0027: 20 6D 6F 75 6E 74 65 64 2E 2E 2E 00 54 65 73 6C      mounted....Tesl
+0037: 61 2D 44 61 2E 64 61 74 00 54 65 73 6C 61 2D 44     a-Da.dat.Tesla-D
+0047: 61 2E 67 63 69 00                                   a.gci.
 
 [__MAXPROG]
 14400
@@ -144,9 +141,9 @@ updateValue                           13  word       (usage 61)
 [PROGRAM]
 main
 [CODESIZE]
-783
+690
 [MEMSIZE]
-13
+10
 [ARGCOUNT]
 0
 [RETURNS]

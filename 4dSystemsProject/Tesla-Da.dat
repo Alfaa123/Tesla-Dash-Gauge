@@ -1,5 +1,5 @@
 "Angularmeter1" 0000 0000 00 00
-"Angularmeter2" 3000 003B A0 00
-"Angularmeter3" 6000 0076 00 78
-"Angularmeter4" 9000 00B1 A0 78
-"Meter1" C000 00EC 00 00
+"Angularmeter2" C800 0075 A0 00
+"Angularmeter3" 9000 00EB 00 78
+"Angularmeter4" 5800 0161 A0 78
+"Meter1" 2000 01D7 00 00

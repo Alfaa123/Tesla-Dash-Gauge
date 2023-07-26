@@ -66,7 +66,7 @@ AngularMeter
     LabelsFont.Style             []
     LabelsOffset                 25
     Left                         0
-    Maxvalue                     100
+    Maxvalue                     200
     Minvalue                     0
     NeedleBasewidth              3
     NeedleColor                  clRed
@@ -113,7 +113,7 @@ AngularMeter
     LabelsFont.Style             []
     LabelsOffset                 25
     Left                         160
-    Maxvalue                     100
+    Maxvalue                     200
     Minvalue                     0
     NeedleBasewidth              3
     NeedleColor                  clRed
@@ -160,7 +160,7 @@ AngularMeter
     LabelsFont.Style             []
     LabelsOffset                 25
     Left                         0
-    Maxvalue                     100
+    Maxvalue                     200
     Minvalue                     0
     NeedleBasewidth              3
     NeedleColor                  clRed
@@ -207,7 +207,7 @@ AngularMeter
     LabelsFont.Style             []
     LabelsOffset                 25
     Left                         160
-    Maxvalue                     100
+    Maxvalue                     200
     Minvalue                     0
     NeedleBasewidth              3
     NeedleColor                  clRed
