@@ -1,0 +1,123 @@
+﻿Version     0.0
+Platform    uLCD-220RD-LR
+PlatRes     220x220
+Depends
+end
+Options
+    Visualizer
+    Speed                        9600
+    Checksum                     No
+    ResponseSize                 2
+    Multidrop                    No
+    Destination                  1
+    DestBank                     0
+    MainForm                     0
+    SndBuf                       0
+    ButtonDisable                No
+    SignedDigits                 No
+    MaxString                    75
+    ComPort                      0
+    ComTX1pinIdx                 0
+    ComRX1pinIdx                 0
+    FileSystem                   GCIfs
+    FlashEraseOption             Optimal
+    SPIenable                    0
+    SPIsdo                       3
+    SPIsdi                       2
+    SPIsck                       1
+    ForceProgramFlash            No
+    PixxiuSDSpeed                0
+    FlashForceLT16MB             No
+end
+Form
+    Name                         Form1
+    Alias                        Form1
+    Bgtype                       Color
+    Color                        BLACK
+    Image                        (None)
+    Source.Height                0
+    Source.Left                  0
+    Source.Top                   0
+    Source.Width                 0
+    OnActivate                   ''
+    OnCreate                     ''
+    OnRepeat                     ''
+    OnTouchMoving                ''
+    OnTouchPressed               ''
+    OnTouchReleased              ''
+end
+iAngularMeter
+    Name                         IAngularMeter1
+    Alias                        IAngularMeter1
+    BGcolor                      BLACK
+    BGtransparent                No
+    Caption                      ''
+    CaptionColor                 LIME
+    CaptionFont                  FONT2
+    CaptionXOffset               -60
+    CaptionYOffset               52
+    GaugeEndAngle                360
+    GaugeStartAngle              90
+    Height                       220
+    LabelColor                   BLACK
+    LabelColorFromScale          No
+    LabelCount                   5
+    LabelDiscrete                No
+    LabelFont                    FONT3
+    LabelOffset                  5
+    Labels                       ''
+    Left                         0
+    Maxvalue                     100
+    MinorTicks                   5
+    Minvalue                     0
+    NeedleCentered               Yes
+    NeedleColor                  GREEN
+    NeedleLength                 90
+    NeedleOffset                 0
+    NeedlePinColor               WHITE
+    NeedlePinDotColor            GREEN
+    NeedlePinDotRadius           1
+    NeedlePinRadius              0
+    NeedleStyle                  Line
+    NeedleTail                   0
+    NeedleThickess               3
+    NeedleXpos                   0
+    NeedleYpos                   0
+    Sect1Color                   GREEN
+    Sect2Color                   YELLOW
+    Sect2StartingAngle           270
+    Sect3Color                   RED
+    Sect3StartingAngle           338
+    SectionStepSize              0
+    ScaleInnerRadius             100
+    ScaleOuterRadius             120
+    TickColor                    clWhite
+    TickColorFromScaleColor      No
+    TickInnerMajorLength         -15
+    TickInnerMinorLength         -5
+    TickOuterMajorLength         0
+    TickOuterMinorLength         0
+    TickWidth                    1
+    Top                          0
+    TotalTicks                   50
+    Width                        220
+    OnChanged                    ''
+end
+iLedDigits
+    Name                         ILedDigits1
+    Alias                        ILedDigits1
+    ColorActive                  GREEN
+    ColorInactive                BLACK
+    DecimalPlace                 0
+    Digits                       4
+    DPisComma                    No
+    Format                       Int16
+    LeadingZero                  No
+    Left                         128
+    ShowDP                       No
+    Signed                       No
+    Size                         1
+    Spacing                      0
+    Top                          148
+    OnChanged                    ''
+end

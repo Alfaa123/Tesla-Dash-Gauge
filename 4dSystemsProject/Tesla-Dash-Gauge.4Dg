@@ -10,7 +10,7 @@
 
 #inherit "Tesla-Dash-GaugeConst.inc"
 
-var transmitBegin := 0;
+
 var transmitInProgress := 0;
 var recieveCount := 0;
 
@@ -109,13 +109,11 @@ func processSerial(var currentChar)
     if (transmitInProgress == 0)
         if (currentChar == 2)
                 transmitInProgress := 1;
-                transmitBegin := 0;
                 recieveCount := 0;
         endif
     else
        if (currentChar == 4)
                 transmitInProgress := 0;
-                transmitBegin := 0;
        endif
          switch (recieveCount)
             case 0:

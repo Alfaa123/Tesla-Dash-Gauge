@@ -1,0 +1,115 @@
+#platform "uLCD-220RD"
+
+#inherit "4DGL_16bitColours.fnc"
+#inherit "ledDigitsDisplay.inc"
+
+#inherit "VisualConst.inc"
+
+#inherit "RoundLCD4DSystemsProjectConst.inc"
+
+#DATA
+    // IAngularMeter1 Data Start
+    word IIAngularMeter1 120, 100, 50, 5, 0, 0, -15, -5, 1, 0xFFFF, 270, 338,
+        GREEN, YELLOW, RED, 0, 5, 3, BLACK, 5, 0, 0x0, 2, LIME, -60, 52, 0, 0,
+        0, 220, 220, 110, 110, BLACK, 90, 360, 0, 100, 90, 0x0, 0, 3, 0, GREEN,
+        0, WHITE, 1, GREEN
+    // IAngularMeter1 Data End
+    // ILedDigits1 Data Start
+    word IILedDigits1 128, 148, 52, 23, 4, -1, 0, 1, GREEN, BLACK, 0x0
+    // ILedDigits1 Data End
+#END
+var vILedDigits1RAM[WIDGET_RAM_SPACE+2] ;
+var vIAngularMeter1RAM[WIDGET_RAM_SPACE] ;
+var gaugeValue := 0;
+var gaugeTarget := 0;
+var transmitInProgress := 0;
+var recieveCount := 0;
+var respondTimer := 0;
+func main()
+    var inputChar := 0;
+    var serialBuffer[128];
+    com_Init(serialBuffer, 256, 0);
+    setbaud(BAUD_115200);
+    COM1_TX_pin(PA0);
+    COM1_RX_pin(PA1);
+    com_SetBaud(COM1, 11520);
+
+    gfx_Set(SCREEN_MODE,LANDSCAPE_R) ;
+
+    var x := 0;
+
+    gfx_AngularMeter(gaugeValue, vIAngularMeter1RAM, IIAngularMeter1) ;
+    gfx_LedDigits(gaugeValue, vILedDigits1RAM, IILedDigits1) ;
+
+    repeat
+
+    inputChar := serin();
+    if (inputChar >= 0)
+        processSerial(inputChar);
+        respondTimer := 0;
+    else
+        if (respondTimer > 1000)
+            respondTimer := 0;
+        endif
+        if (respondTimer < 1)
+            serout(6);
+        endif
+        respondTimer++;
+    endif
+
+
+   //     if (gaugeTarget == gaugeValue)
+     //       var randomNumber := 0;
+     //       randomNumber := RAND();
+    //        if (randomNumber < 100)
+     //           if (randomNumber > 0)
+    //            gaugeTarget := randomNumber;
+    //            endif
+     //           endif
+     //   endif
+
+
+
+if (gaugeTarget != gaugeValue)
+
+            if (gaugeTarget > gaugeValue) gaugeValue++;
+            if (gaugeTarget < gaugeValue) gaugeValue--;
+
+            gfx_AngularMeter(gaugeValue, vIAngularMeter1RAM, IIAngularMeter1) ;
+            gfx_LedDigits(gaugeValue, vILedDigits1RAM, IILedDigits1) ;
+        endif
+    forever
+endfunc
+
+
+func processSerial(var currentChar)
+    if (transmitInProgress == 0)
+        switch (currentChar)
+            case 1:
+                transmitInProgress := 2;
+                recieveCount := 0;
+                serout1(currentChar);
+                break;
+            case 2:
+                transmitInProgress := 1;
+                recieveCount := 0;
+                break;
+            endswitch
+
+    else if (transmitInProgress == 1)
+       if (currentChar == 4)
+                transmitInProgress := 0;
+       endif
+       serout1(currentChar);
+    else if (transmitInProgress == 2)
+        if (currentChar == 4)
+            transmitInProgress := 0;
+       endif
+                switch (recieveCount)
+            case 0:
+                gaugeTarget := currentChar - 55;
+                break;
+        endswitch
+        recieveCount++;
+    endif
+endfunc

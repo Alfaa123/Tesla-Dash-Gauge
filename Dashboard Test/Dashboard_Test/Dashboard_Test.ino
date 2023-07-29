@@ -29,19 +29,24 @@ if (value[x] < valueTarget[x]) { value[x] = value[x] + 1;}
 else {value[x] = value[x] - 1;}
 }  
 
-Serial.write(2);
-for (int x = 0; x < 4; x++){Serial.write(value[x] + 55);}
+// Serial.write(2);
+// for (int x = 0; x < 4; x++){Serial.write(value[x] + 55);}
+// Serial.write(4);
+
+Serial.write(1);
+Serial.write(value[0] + 55);
 Serial.write(4);
 
-while (true){
-  if (Serial.available() > 0){
-    if (Serial.read() == 6){
-      Serial.flush();
-      break;
-    }
-  }
+delay(10);
 
-}
+// while (true){
+//   if (Serial.available() > 0){
+//     if (Serial.read() == 6){
+//       Serial.flush();
+//       break;
+//     }
+//   }
+//}
 
 
 }

@@ -1,0 +1,190 @@
+==============================================================
+==============================================================
+4DGL Compiler 2.8.1.0 -- Copyright 2004-2016 4D Labs
+** C:\Users\Alex\Desktop\Tesla-Dash-Gauge\RoundLCD4DSystemsProject\RoundLCD4DSystemsProject.4dg
+compiled Sat Jul 29 16:35:04 2023
+
+==============================================================
+==============================================================
+
+
+No Ref for file
+[LINKING]
+function 3, processSerial, address 0x87, stack usage 0 + 4 
+currentChar                            1  word     [arg]  (usage 18)
+
+[LINKING]
+function 2, main(main entry point), address 0x157, stack usage 260 + 4 
+inputChar                              1  word     [local]  (usage 10)
+serialBuffer                           2  word[128]  [local]  (usage 3)
+x                                    130  word     [local]  (usage 1)
+
+[LINKING]
+function 1, ledDigitsDisplay, address 0x23c, stack usage 14 + 4 
+num                                    4  word[4]  [local]  (usage 6)
+newval                                 1  word     [arg]  (usage 3)
+Digits                                 2  word     [arg]  (usage 9)
+left                                   2  word     [arg]  (usage 3)
+index                                  1  word     [arg]  (usage 9)
+MinDigits                              3  word     [arg]  (usage 3)
+LeadingBlanks                          4  word     [arg]  (usage 6)
+WidthDigit                             3  word     [arg]  (usage 3)
+i                                      1  word     [local]  (usage 15)
+k                                      2  word     [local]  (usage 12)
+l                                      3  word     [local]  (usage 12)
+
+[RESERVED WORDS]
+#inherit
+#LISTCODE
+#MODE
+#STACK
+#OPTIMIZE_ON
+#OPTIMIZE_OFF
+byte
+word
+dword
+float
+private
+#IF
+#IFNOT
+#ELSE
+#ENDIF
+#CONST
+#constant
+#USE
+USING
+func
+endfunc
+var
+#STOP
+#DATA
+#ASM
+#END
+#platform
+EXISTS
+#ERROR
+#MESSAGE
+#NOTICE
+sizeof
+argcount
+if
+else
+endif
+while
+wend
+repeat
+until
+forever
+return
+break
+continue
+for
+next
+switch
+case
+default
+endswitch
+print
+goto
+gosub
+endsub
+mcall
+lookup8
+lookup16
+
+[MACRO]
+
+[CONSTANTS]
+__MAXMEM                          00008000      32768  (usage 1)
+__MAXPROG                         00007FEE      32750  (usage 1)
+BAUD_115200                       0000000D         13  (usage 3)
+BLACK                             00000000          0  (usage 9)
+COM1                              0000F805      63493  (usage 3)
+DIABLO                            00000003          3  (usage 3)
+GREEN                             00000400       1024  (usage 12)
+IMAGE_INDEX                       00000009          9  (usage 3)
+IMAGE_XPOS                        00000002          2  (usage 3)
+LANDSCAPE_R                       00000001          1  (usage 3)
+LIME                              000007E0       2016  (usage 3)
+PA0                               00000001          1  (usage 3)
+PA1                               00000002          2  (usage 3)
+RED                               0000F800      63488  (usage 3)
+SCREEN_MODE                       00000017         23  (usage 3)
+WHITE                             0000FFFF      65535  (usage 3)
+WIDGET_RAM_SPACE                  0000000A         10  (usage 6)
+YELLOW                            0000FFE0      65504  (usage 3)
+
+[PmmC FUNCTIONS]
+COM1_RX_pin                       FFFFFF1E        -226  args=1 r=1  (usage 3)
+COM1_TX_pin                       FFFFFF1B        -229  args=1 r=1  (usage 3)
+com_Init                          FFFFFF18        -232  args=3 r=0  (usage 3)
+com_SetBaud                       FFFFFF1F        -225  args=2 r=1  (usage 3)
+gfx_AngularMeter                  FFFFFDBA        -582  args=3 r=0  (usage 6)
+gfx_LedDigits                     FFFFFDB5        -587  args=3 r=0  (usage 6)
+gfx_Set                           FFFFFF83        -125  args=2 r=0  (usage 3)
+img_SetWord                       FFFFFE85        -379  args=4 r=1  (usage 6)
+img_Show                          FFFFFE83        -381  args=2 r=1  (usage 3)
+putnum                            FFFFFFF9          -7  args=2 r=1  (usage 3)
+serin                             FFFFFF14        -236  args=0 r=1  (usage 3)
+serout                            FFFFFF10        -240  args=1 r=0  (usage 3)
+serout1                           FFFFFF0F        -241  args=1 r=0  (usage 6)
+setbaud                           FFFFFF20        -224  args=1 r=0  (usage 3)
+str_GetByte                       FFFFFE25        -475  args=1 r=1  (usage 3)
+str_Ptr                           FFFFFE2A        -470  args=1 r=1  (usage 3)
+to                                FFFFFFFF          -1  args=1 r=0  (usage 3)
+
+[USER FUNCTIONS]
+processSerial                     00000087  args=1 r=0  (usage 3)
+
+[GLOBAL VARIABLES]
+gaugeTarget                           25  word       (usage 13)
+gaugeValue                            24  word       (usage 28)
+hndl                                   1  word       (usage 9)
+recieveCount                          27  word       (usage 13)
+respondTimer                          28  word       (usage 16)
+transmitInProgress                    26  word       (usage 22)
+vIAngularMeter1RAM                    14  word[10]   (usage 6)
+vILedDigits1RAM                        2  word[12]   (usage 6)
+
+[PRIVATE VARIABLES]
+
+[DATA]
+0007: 78 00 64 00 32 00 05 00 00 00 00 00 F1 FF FB FF     x.d.2.......ñÿûÿ
+0017: 01 00 FF FF 0E 01 52 01 00 04 E0 FF 00 F8 00 00     ..ÿÿ..R...àÿ.ø..
+0027: 05 00 03 00 00 00 05 00 00 00 00 00 02 00 E0 07     ..............à.
+0037: C4 FF 34 00 00 00 00 00 00 00 DC 00 DC 00 6E 00     Äÿ4.......Ü.Ü.n.
+0047: 6E 00 00 00 5A 00 68 01 00 00 64 00 5A 00 00 00     n...Z.h...d.Z...
+0057: 00 00 03 00 00 00 00 04 00 00 FF FF 01 00 00 04     ..........ÿÿ....
+0067: 80 00 94 00 34 00 17 00 04 00 FF FF 00 00 01 00     €.”.4.....ÿÿ....
+0077: 00 04 00 00 00 00 AD 00 C4 00 D3 00 28 01 34 01     ......­.Ä.Ó.(.4.
+
+[__MAXPROG]
+32750
+[__MAXMEM]
+32768
+
+[PROGRAM]
+main
+[CODESIZE]
+747
+[MEMSIZE]
+28
+[ARGCOUNT]
+0
+[RETURNS]
+NO
+[STACKSIZE]
+0 (AUTO)
+[STACK_ESTIMATE]
+286   (nb:- worst case estimate)
+[MODE]
+0
+
+[PROJECT]
+C:\Users\Alex\Desktop\Tesla-Dash-Gauge\RoundLCD4DSystemsProject\RoundLCD4DSystemsProject.4dg
+C:\Program Files (x86)\4D Labs\4D Workshop 4 IDE\include\uLCD-220RD.fnc
+C:\Program Files (x86)\4D Labs\4D Workshop 4 IDE\include\Diablo16_Functions.fnc
+C:\Program Files (x86)\4D Labs\4D Workshop 4 IDE\include\4DGL_16bitColours.fnc
+C:\Program Files (x86)\4D Labs\4D Workshop 4 IDE\include\ledDigitsDisplay.inc
+C:\Program Files (x86)\4D Labs\4D Workshop 4 IDE\include\VisualConst.inc
+C:\Users\Alex\Desktop\Tesla-Dash-Gauge\RoundLCD4DSystemsProject\RoundLCD4DSystemsProject.4DWork\RoundLCD4DSystemsProjectConst.inc

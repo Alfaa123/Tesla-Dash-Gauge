@@ -1,0 +1,22 @@
+linked : 3     processSerial 000087
+ stmt:Offset  stmt:offset  stmt:offset  stmt:offset  stmt:offset  stmt:offset  stmt:offset  stmt:offset
+   86:000087    87:00008f    88:0000ad    88:0000ad    89:0000ad    90:0000b3    91:0000b9    92:0000c1 
+   93:0000c4    93:0000c4    94:0000c4    95:0000ca    96:0000d0    99:0000d6   100:0000de   101:0000e6 
+  103:0000ec   104:0000f7   105:0000ff   106:000107   108:00010d   109:000128   109:000128   110:000128 
+  111:000131   113:000134 
+
+linked : 2     main 000139
+ stmt:Offset  stmt:offset  stmt:offset  stmt:offset  stmt:offset  stmt:offset  stmt:offset  stmt:offset
+   23:000139    24:00013f    25:000145    26:00014b    27:000151 
+
+ stmt:Offset  stmt:offset  stmt:offset  stmt:offset  stmt:offset  stmt:offset  stmt:offset  stmt:offset
+   29:000159    39:00015f    31:000165    32:000172    33:00017a    34:000182    35:00018a    37:000196 
+   41:0001a0    42:0001ad    44:0001ba    46:0001ba    47:0001c3    48:0001cb    49:0001d2    51:0001db 
+   52:0001e4    54:0001ea    55:0001f2    57:0001fa    73:0001fe    75:000206    75:00020e    76:000212 
+   76:00021a    78:00021e    79:00022b 
+
+linked : 1     ledDigitsDisplay 00023C
+ stmt:Offset  stmt:offset  stmt:offset  stmt:offset  stmt:offset  stmt:offset  stmt:offset  stmt:offset
+    3:00023e     4:00024b     5:000253     6:00025d     7:000268     8:000280     9:00028f    10:0002a1 
+   11:0002a9    13:0002b2    16:0002b8    17:0002c6    18:0002da 
+
